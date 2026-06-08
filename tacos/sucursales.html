@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sucursales - Taquerías El Paisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <!-- Botón Volver -->
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+    </a>
+
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-circle">
+                    <i class="fas fa-pepper-hot"></i>
+                </div>
+                <div class="logo-text">
+                    <div>Taquerías</div>
+                    <div>El Paisa</div>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="menu.html">Menú</a>
+                <a href="promociones-del-dia.html">Especiales Fin de semana</a>
+                <a href="promociones.html">Promociones </a>
+                <a href="combos-familiares.html">Combo Familiar </a>
+                <a href="sucursales.html">Sucursales</a>
+                <a href="contacto.html">Sucursales</a>
+            </div>
+
+            <div class="nav-icons">
+                <div onclick="window.location.href='carrito.html'" class="cart-icon">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.6rem;"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- TÍTULO PRINCIPAL -->
+    <div class="promos-hero">
+        <h1>📍 Nuestras Sucursales</h1>
+    </div>
+
+    <!-- GRID DE SUCURSALES -->
+    <div class="menu-grid" id="sucursales-grid"></div>
+
+    <script>
+        const sucursales = [
+            {
+                name: "Sucursal Reforma Centro",
+                address: "Av. Reforma #245, Col. Centro, CDMX",
+                phone: "55 1234 5678",
+                hours: "10:00 - 22:00",
+                img: "reforma.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Av.+Reforma+245,+Centro+CDMX"
+            },
+            {
+                name: "Sucursal Polanco",
+                address: "Horacio #456, Polanco, CDMX",
+                phone: "55 8765 4321",
+                hours: "11:00 - 23:00",
+                img: "Polanco.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Horacio+456,+Polanco+CDMX"
+            },
+            {
+                name: "Sucursal Coyoacán",
+                address: "Francisco Sosa #789, Coyoacán, CDMX",
+                phone: "55 9876 5432",
+                hours: "9:00 - 21:00",
+                img: "Coyoacán.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Francisco+Sosa+789,+Coyoacan+CDMX"
+            },
+            {
+                name: "Sucursal Satélite",
+                address: "Circuito Centro Comercial #101, Naucalpan",
+                phone: "55 1122 3344",
+                hours: "10:00 - 22:00",
+                img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5",
+                maps: "Satélite.jpg"
+            }
+        ];
+
+        function createCard(item) {
+            return `
+                <div class="promo-card">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="promo-content">
+                        <h3>${item.name}</h3>
+                        <p>${item.address}</p>
+                        <p><strong>📞</strong> ${item.phone}</p>
+                        <p><strong>🕒</strong> ${item.hours}</p>
+                        <a href="${item.maps}" target="_blank" class="how-to-get-btn">
+                            Cómo llegar
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.getElementById('sucursales-grid').innerHTML = sucursales.map(createCard).join('');
+    </script>
+
+</body>
+</html>

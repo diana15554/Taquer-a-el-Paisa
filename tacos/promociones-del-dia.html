@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones del Día - Taquerías El Paisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="estilo.css">
+<body>
+
+    <!-- Botón Volver -->
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+    </a>
+
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-circle">
+                    <i class="fas fa-pepper-hot"></i>
+                </div>
+                <div class="logo-text">
+                    <div>Taquerías</div>
+                    <div>El Paisa</div>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="menu.html">Menú</a>
+                <a href="mas-pedidos.html">Más Pedidos</a>
+                <a href="combos-familiares.html">Combos Familiares</a>
+                <a href="promociones.html">Promociones</a>
+            </div>
+
+            <div class="nav-icons">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Buscar promociones...">
+                </div>
+                <i class="fas fa-user"></i>
+                <div onclick="window.location.href='carrito.html'" class="cart-icon">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.6rem;"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- TÍTULO PRINCIPAL -->
+    <div class="promos-hero">
+        <h1>🔥 Promociones del Día</h1>
+    </div>
+
+    <!-- GRID DE PROMOCIONES -->
+    <div class="menu-grid" id="promos-grid"></div>
+
+    <script src="cart.js"></script>
+    <script>
+        const promociones = [
+            {name: "Mega Combo Familiar", desc: "10 tacos mixtos + 5 bebidas + guacamole + papas", price: "$399", img: "10 tacos mixtos + 5 bebidas + guacamole + papas.jpg"},
+            {name: "Tacos al 2x1", desc: "Pide 2 tacos y paga 1 (excepto lengua y barbacoa)", price: "$25", img: "Tacos al 2x1.jpg"},
+            {name: "Quesadilla Monster", desc: "Quesadilla gigante con doble carne + refresco", price: "$79", img: "Quesadilla gigante.jpg"},
+            {name: "Burrito XL + Papas", desc: "Burrito gigante con todo + papas grandes", price: "$89", img: "Burrito gigante.jpg"},
+            {name: "Michelada + 3 Tacos", desc: "Michelada + 3 tacos al pastor", price: "$85", img: "Michelada + 3 tacos al pastor.jpg"},
+            {name: "Plato Paisa Especial", desc: "Carne asada, chorizo, arroz, frijoles y 2 tacos", price: "$99", img: "Carne asada.jpg"},
+            {name: "Nachos para Compartir", desc: "Nachos grandes con carne, queso, guacamole y crema", price: "$79", img: "Nachos grandes.jpg"},
+            {name: "Torta + Refresco Gratis", desc: "Torta ahogada + refresco grande", price: "$69", img: "Torta ahogada + refresco grande.jpg"}
+        ];
+
+        function createCard(item) {
+            return `
+                <div class="menu-card">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="menu-card-content">
+                        <h3>${item.name}</h3>
+                        <p>${item.desc}</p>
+                        <div class="price">${item.price}</div>
+                        <button onclick="addToCart('${item.name}', '${item.price}', '${item.img}')" class="add-to-cart-btn">
+                            Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.getElementById('promos-grid').innerHTML = promociones.map(createCard).join('');
+    </script>
+
+</body>
+</html>

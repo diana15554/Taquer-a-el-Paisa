@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Más Pedidos - Taquerías El Paisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <!-- Botón Volver -->
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+    </a>
+
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-circle">
+                    <i class="fas fa-pepper-hot"></i>
+                </div>
+                <div class="logo-text">
+                    <div>Taquerías</div>
+                    <div>El Paisa</div>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="menu.html">Menú</a>
+                <a href="mas-pedidos.html">Más Pedidos</a>
+                <a href="promociones.html">Promociones</a>
+                <a href="combos-familiares.html">Combos Familiares</a>
+            </div>
+
+            <div class="nav-icons">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Buscar más pedidos...">
+                </div>
+                <i class="fas fa-user"></i>
+                <div onclick="window.location.href='carrito.html'" class="cart-icon">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.6rem;"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO -->
+    <section class="menu-section">
+        <h2 class="section-title">🔥 Los Más Pedidos</h2>
+        <div class="menu-grid" id="mas-pedidos-grid"></div>
+    </section>
+
+    <script src="cart.js"></script>
+    <script>
+        const masPedidos = [
+            {name: "Taco de Carne Asada", desc: "Carne jugosa con cilantro y cebolla", price: "$28", img: "asada.jpg"},
+            {name: "Taco al Pastor", desc: "Con piña y especias", price: "$26", img: "pastor.jpg"},
+            {name: "Huarache de Bistec", desc: "Con queso y salsa", price: "$80", img: "huarache.jpg"},
+            {name: "Michelada", desc: "Clásica con cerveza", price: "$50", img: "michelada.jpg"}
+           
+        ];
+
+        function createCard(item) {
+            return `
+                <div class="menu-card">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="menu-card-content">
+                        <h3>${item.name}</h3>
+                        <p>${item.desc}</p>
+                        <div class="price">${item.price}</div>
+                        <button onclick="addToCart('${item.name}', '${item.price}', '${item.img}')" class="add-to-cart-btn">
+                            Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.getElementById('mas-pedidos-grid').innerHTML = masPedidos.map(createCard).join('');
+    </script>
+
+</body>
+</html>

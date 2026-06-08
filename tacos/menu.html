@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú - Taquerías El Paisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <!-- Botón Volver -->
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+    </a>
+
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-circle">
+                    <i class="fas fa-pepper-hot"></i>
+                </div>
+                <div class="logo-text">
+                    <div>Taquerías</div>
+                    <div>El Paisa</div>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="menu.html">Menú</a>
+                <a href="promociones-del-dia.html">Especiales Fin de semana</a>
+                <a href="mas-pedidos.html">Más Pedidos</a>
+                <a href="combos-familiares.html">Combos Familiares</a>
+            </div>
+
+            <div class="nav-icons">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar antojitos..." onkeyup="filterItems()">
+                </div>
+                <i class="fas fa-user"></i>
+                <div onclick="window.location.href='carrito.html'" class="cart-icon">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.6rem;"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- TACOS -->
+    <section class="menu-section">
+        <h2 class="section-title">🌮 Nuestros Tacos (10)</h2>
+        <div class="menu-grid" id="tacos-grid"></div>
+    </section>
+
+    <!-- BEBIDAS -->
+    <section class="menu-section">
+        <h2 class="section-title">🥤 Bebidas (10)</h2>
+        <div class="menu-grid" id="bebidas-grid"></div>
+    </section>
+
+    <!-- ESPECIALIDADES -->
+    <section class="menu-section">
+        <h2 class="section-title">⭐ Especialidades de la Casa (10)</h2>
+        <div class="menu-grid" id="especialidades-grid"></div>
+    </section>
+
+    <script src="images.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        // === TUS DATOS ORIGINALES ===
+        const tacos = [
+            {name: "Taco de Carne Asada", desc: "Carne jugosa con cilantro y cebolla", price: "$28", img: "asada.jpg"},
+            {name: "Taco al Pastor", desc: "Marinado con piña y especias", price: "$26", img: "pastor.jpg"},
+            {name: "Taco de Carnitas", desc: "carnitas ", price: "$25", img: "carnitas.jpg"},
+            {name: "Taco de Barbacoa", desc: "Barbacoa tierna con consomé", price: "$30", img: "barbacoa.jpg"},
+            {name: "Taco de Chorizo", desc: "Chorizo rojo con cilantro y cebolla", price: "$24", img: "chorizo.jpg"},
+            {name: "Taco de Lengua", desc: "Lengua estofada", price: "$32", img: "lengua.jpg"},
+            {name: "Taco de Suadero", desc: "Suadero crujiente", price: "$27", img: "suadero.jpg"},
+            {name: "Taco de Campechano", desc: "campechano", price: "$35", img: "campechano.jpg"},
+            {name: "Taco de Tripa", desc: "Tripa dorada y crujiente", price: "$29", img: "tripa.jpg"},
+            {name: "Taco Vegetariano", desc: "Hongos, nopales y queso", price: "$23", img: "vegetariano.jpg"}
+        ];
+
+        const bebidas = [
+            {name: "Agua de Horchata", desc: " Horchata casera", price: "$25", img: "horchata.jpg"},
+            {name: "Agua de Jamaica", desc: "Refrescante y natural", price: "$25", img: "jamaica.jpg"},
+            {name: "Limonada Fresca", desc: "Con menta y limón", price: "$25", img: "limonada.jpg"},
+            {name: "Coca Cola", desc: "Bien fría", price: "$30", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97"},
+            {name: "Agua Mineral", desc: "Con gas", price: "$25", img: "mineral.jpg"},
+            {name: "Michelada", desc: "Clásica con cerveza", price: "$50", img: "michelada.jpg"},
+            {name: "Margarita", desc: "De Fresa", price: "$55", img: "fresa.jpg"},
+            {name: "Tequila Sunrise", desc: "Tequila con naranja", price: "$60", img: "tequila.jpg"},
+            {name: "Cerveza Corona", desc: "Bien fría", price: "$40", img: "corona.jpg"},
+            {name: "Cerveza Modelo", desc: "bien fria", price: "$40", img: "modelo.jpg"},
+            {name: "Aguas de Tamarindo", desc: "Refrescante y Asidita", price: "$18", img: "tamarindo.jpg"}
+        ];
+
+        const especialidades = [
+            {name: "Burrito El Paisa", desc: "Burrito gigante con todo", price: "$85", img: "burrito.jpg"},
+            {name: "Quesadilla Gigante", desc: "Con carne y queso fundido", price: "$65", img: "quesadilla.jpg"},
+            {name: "Torta Ahogada", desc: "Torta bañada en salsa", price: "$55", img: "torta.jpg"},
+            {name: "Plato El Paisa", desc: "Carne, arroz, frijoles y tacos", price: "$95", img: "carne.jpg"},
+            {name: "Nachos Supremos", desc: "Con carne, queso y guacamole", price: "$70", img: "nachos.jpg"},
+            {name: "Enchiladas Verdes", desc: "Con salsa verde y crema", price: "$75", img: "enchiladas.jpg"},
+            {name: "Flautas de Pollo", desc: "Crujientes con crema y salsa", price: "$60", img: "flautas.jpg"},
+            {name: "Huarache de Bistec", desc: "Con queso y salsa", price: "$80", img: "huarache.jpg"},
+            {name: "Mole Poblano", desc: "Pollo con mole tradicional", price: "$90", img: "mole.jpg"},
+            {name: "Sopa de Tortilla", desc: "Con crema y aguacate", price: "$45", img: "sopa.jpg"}
+        ];
+
+        function createCard(item) {
+            return `
+                <div class="menu-card" data-name="${item.name.toLowerCase()}">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="menu-card-content">
+                        <h3>${item.name}</h3>
+                        <p>${item.desc}</p>
+                        <div class="price">${item.price}</div>
+                        <button onclick="addToCart('${item.name}', '${item.price}', '${item.img}')" class="add-to-cart-btn">
+                            Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Renderizar
+        document.getElementById('tacos-grid').innerHTML = tacos.map(createCard).join('');
+        document.getElementById('bebidas-grid').innerHTML = bebidas.map(createCard).join('');
+        document.getElementById('especialidades-grid').innerHTML = especialidades.map(createCard).join('');
+
+        // === BÚSQUEDA FUNCIONAL ===
+        function filterItems() {
+            const term = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            document.querySelectorAll('.menu-card').forEach(card => {
+                const name = card.getAttribute('data-name') || '';
+                card.style.display = name.includes(term) ? 'block' : 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>

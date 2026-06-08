@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Taquerías El Paisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+    </a>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-circle">
+                    <i class="fas fa-pepper-hot"></i>
+                </div>
+                <div class="logo-text">
+                    <div>Taquerías</div>
+                    <div>El Paisa</div>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="menu.html">Menú</a>
+                <a href="promociones-del-dia.html">Especiales fin de semana</a>
+                <a href="sucursales.html">Sucursales</a>
+               <a href="promociones.html">Promociones</a>
+            </div>
+
+            <div class="nav-icons">
+                <div onclick="window.location.href='carrito.html'" class="cart-icon">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.6rem;"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="promos-hero">
+        <h1>📞 Contáctanos</h1>
+    </div>
+
+    <section class="menu-section">
+        <div class="contact-container">
+            
+            <!-- INFORMACIÓN DE CONTACTO (como en tu imagen) -->
+            <div class="contact-info">
+                <h2>Información de Contacto</h2>
+                <p><i class="fas fa-phone"></i> <strong>Teléfono:</strong> 55 1234 5678</p>
+                <p><i class="fas fa-envelope"></i> <strong>Email:</strong> hola@taqueriaselpaisa.com</p>
+                <p><i class="fas fa-clock"></i> <strong>Horario:</strong> Lunes a Domingo 10:00 - 22:00</p>
+                <p><i class="fas fa-creators"></i><strong>Creadoras:</strong> Vicente Garcia Diana-Mejia Olalde Jennifer Mayte</p>
+            </div>
+
+            <!-- Formulario -->
+            <div class="contact-form">
+                <h2>Envíanos un mensaje</h2>
+                <form id="contactForm">
+                    <input type="text" id="nombre" placeholder="Tu nombre" required>
+                    <input type="email" id="email" placeholder="Tu correo electrónico" required>
+                    <input type="tel" id="telefono" placeholder="Tu teléfono">
+                    <textarea id="mensaje" placeholder="Escribe tu mensaje aquí..." rows="6" required></textarea>
+                    <button type="submit" class="checkout-btn">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="cart.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value || "Cliente";
+            
+            const successMsg = document.createElement('div');
+            successMsg.style.cssText = `
+                position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                background: #4CAF50; color: white; padding: 25px 40px; border-radius: 12px;
+                font-size: 1.3rem; z-index: 10000; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            `;
+            successMsg.innerHTML = `✅ ¡Mensaje enviado correctamente!<br><br>Gracias ${nombre}, te responderemos pronto.`;
+            document.body.appendChild(successMsg);
+
+            this.reset();
+
+            setTimeout(() => {
+                successMsg.remove();
+            }, 3000);
+        });
+    </script>
+
+</body>
+</html>

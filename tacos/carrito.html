@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - Taquerías El Paisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+    </a>
+
+    <section class="menu-section">
+        <h2 class="section-title">🛒 Tu Carrito de Compras</h2>
+       
+        <div id="cart-empty" class="cart-empty">
+            <h3>Tu carrito está vacío</h3>
+            <a href="menu.html" class="btn">Ir al Menú</a>
+        </div>
+
+        <div id="cart-content">
+            <div id="cart-items" class="cart-items"></div>
+           
+            <div id="cart-total-container" class="cart-total-container">
+                <h3>Total: <span id="total-amount">$0</span></h3>
+                <button onclick="mostrarFormularioPago()" class="checkout-btn">💳 Proceder a Pagar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL DE PAGO FUNCIONAL -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <h2>Método de pago</h2>
+            
+            <div class="card-logos">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+            </div>
+
+            <div class="card-form">
+                <label>Número de tarjeta</label>
+                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19">
+
+                <div class="form-row">
+                    <div>
+                        <label>Fecha de caducidad</label>
+                        <input type="text" id="expiry" placeholder="MM/AA" maxlength="5">
+                    </div>
+                    <div>
+                        <label>Código de seguridad</label>
+                        <input type="text" id="cvv" placeholder="123" maxlength="4">
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="procesarPago()" class="pay-now-btn">Pagar Ahora</button>
+            <button onclick="cerrarModal()" class="cancel-btn">Cancelar</button>
+        </div>
+    </div>
+
+    <script src="cart.js"></script>
+    <script>
+        function renderCart() {
+            const empty = document.getElementById('cart-empty');
+            const content = document.getElementById('cart-content');
+            const itemsContainer = document.getElementById('cart-items');
+           
+            if (cart.length === 0) {
+                empty.style.display = 'block';
+                content.style.display = 'none';
+                return;
+            }
+            empty.style.display = 'none';
+            content.style.display = 'block';
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const qty = item.quantity || 1;
+                const subtotal = item.price * qty;
+                total += subtotal;
+
+                html += `
+                    <div class="cart-item">
+                        <img src="${item.img || ''}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <h3>${item.name}</h3>
+                            <p>$${item.price} c/u</p>
+                        </div>
+                        <div class="quantity-controls">
+                            <button onclick="changeQty(${index}, -1)">−</button>
+                            <span>${qty}</span>
+                            <button onclick="changeQty(${index}, 1)">+</button>
+                        </div>
+                        <div class="subtotal">$${subtotal}</div>
+                        <button onclick="removeFromCart(${index})" class="remove-btn">🗑</button>
+                    </div>
+                `;
+            });
+
+            itemsContainer.innerHTML = html;
+            document.getElementById('total-amount').textContent = '$' + total;
+        }
+
+        function mostrarFormularioPago() {
+            if (cart.length === 0) return;
+            document.getElementById('payment-modal').style.display = 'flex';
+        }
+
+        function cerrarModal() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        function procesarPago() {
+            const cardNumber = document.getElementById('card-number').value.trim();
+            if (!cardNumber) {
+                alert("Por favor ingresa el número de tarjeta");
+                return;
+            }
+            cerrarModal();
+            alert("🎉 ¡Pago procesado correctamente!\n\nGracias por tu compra en Taquerías El Paisa");
+            
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        window.onload = renderCart;
+    </script>
+
+</body>
+</html>

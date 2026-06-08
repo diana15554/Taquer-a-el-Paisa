@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combos Familiares - Taquerías El Paisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <!-- Botón Volver -->
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+    </a>
+
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-circle">
+                    <i class="fas fa-pepper-hot"></i>
+                </div>
+                <div class="logo-text">
+                    <div>Taquerías</div>
+                    <div>El Paisa</div>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="menu.html">Menú</a>
+                <a href="mas-pedidos.html">Más Pedidos</a>
+                <a href="combos-familiares.html">Combos Familiares</a>
+                <a href="promociones.html">Promociones</a>
+            </div>
+
+            <div class="nav-icons">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Buscar combos...">
+                </div>
+                <i class="fas fa-user"></i>
+                <div onclick="window.location.href='carrito.html'" class="cart-icon">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.6rem;"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- TÍTULO PRINCIPAL -->
+    <div class="combos-hero">
+        <h1>👨‍👩‍👧 Combos Familiares</h1>
+    </div>
+
+    <!-- GRID DE COMBOS -->
+    <div class="menu-grid" id="combos-grid"></div>
+
+    <script src="cart.js"></script>
+    <script>
+        const combos = [
+            {name: "Combo Familiar 4 Personas", desc: "5 tacos mixtos + 4 bebidas + guacamole", price: "$320", img: "tacos mixtos.jpg"},
+            {name: "Combo Pareja", desc: "3 tacos + 2 bebidas + guacamole", price: "$149", img: "guacamole.jpg"},
+            {name: "Combo Grande 6 Personas", desc: "9 tacos + 6 bebidas + arroz y frijoles", price: "$450", img: " arroz y frijoles.jpg"},
+            {name: "Combo Fiesta", desc: "16 tacos + 8 bebidas + nachos", price: "$580", img: "16 tacos.jpg "}
+        ];
+
+        function createCard(item) {
+            return `
+                <div class="menu-card">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="menu-card-content">
+                        <h3>${item.name}</h3>
+                        <p>${item.desc}</p>
+                        <div class="price">${item.price}</div>
+                        <button onclick="addToCart('${item.name}', '${item.price}', '${item.img}')" class="add-to-cart-btn">
+                            Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.getElementById('combos-grid').innerHTML = combos.map(createCard).join('');
+    </script>
+
+</body>
+</html>
